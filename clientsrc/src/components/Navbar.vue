@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-    <router-link class="navbar-brand" :to="{ name: 'Home' }">CodeWorks Starter</router-link>
+    <router-link class="navbar-brand" :to="{ name: 'Home' }">Kanban</router-link>
     <button
       class="navbar-toggler"
       type="button"
@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" v-if="$auth.isAuthenticated">
-          <router-link class="nav-link" :to="{ name: 'Dashboard.Profile' }">My-Dashboard</router-link>
+          <router-link class="nav-link" :to="{ name: 'Dashboard.Profile' }">My Dashboard</router-link>
         </li>
       </ul>
       <span class="navbar-text">

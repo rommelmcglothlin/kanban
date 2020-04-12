@@ -35,7 +35,6 @@ import { List } from "../models/List";
 import Lists from "../components/List";
 export default {
   name: "Board",
-  props: ["boardId"],
   components: {
     Lists
   },
@@ -59,7 +58,7 @@ export default {
   methods: {
     createList() {
       this.$store.dispatch("createList", this.editable);
-      this.editable = new List();
+      this.editablle = new List();
     }
   }
 };

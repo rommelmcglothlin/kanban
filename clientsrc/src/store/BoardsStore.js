@@ -7,7 +7,6 @@ export default {
     board: new Board(),
   },
   mutations: {
-    /* set a defaults boards = [] */
     setBoards(state, boards = []) {
       state.boards = boards;
     },
@@ -39,24 +38,19 @@ export default {
     },
     async getBoard({ commit }, id) {
       let boards = await $resource.get("api/boards/" + id);
-      /* sets the board as active board */
       commit("setBoard", boards);
     },
     async createBoard({ commit }, boardData) {
       let board = await $resource.post("api/boards", boardData);
-      // REVIEW when creating a board this sets it as the active board
       commit("setBoard", board);
-      // this does add the board to the list
       commit("addBoard", board);
     },
     async deleteBoard({ commit }, boardData) {
       let board = await $resource.delete("api/boards/" + boardData.id);
-      /* sets the board as active board */
       commit("deleteBoard", board);
     },
     async updateBoard({ commit }, boardData) {
       let board = await $resource.put("api/boards/", boardData);
-      /* sets the board as active board */
       commit("updateBoard", board);
     },
   },
