@@ -4,7 +4,6 @@
       <div class="box d-flex justify-content-between">
         {{list.title}}
         <i class="fa fa-trash text-muted mr-2" @click="deleteList"></i>
-        <i class="fa fa-pencil text-muted mr-2" @click="editList"></i>
       </div>
     </div>
   </div>
@@ -28,9 +27,6 @@ export default {
       } else {
         this.$store.dispatch("deleteList", this.list);
       }
-    },
-    async editList() {
-      this.$emit("edit", this.list);
     }
   }
 };

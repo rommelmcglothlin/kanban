@@ -15,7 +15,7 @@
                 type="text"
                 class="form-control"
                 id="title"
-                placeholder="Story Name"
+                placeholder="Sprint Status"
                 v-model="editable.title"
               />
             </div>
@@ -58,7 +58,10 @@ export default {
   },
   methods: {
     createList() {
-      this.$store.dispatch("createList", this.editable);
+      this.$store.dispatch("createList", {
+        title: this.editable,
+        boardId: this.$route.params.boardId
+      });
       this.editable = new List();
     }
   }
