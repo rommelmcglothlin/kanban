@@ -3,7 +3,12 @@
     <div class="row mt-3">
       <div class="col-2 mx-auto">
         <div class="d-flex flex-column links">
-          <router-link :to="{name:'Dashboard.Profile'}">Profile</router-link>
+          <!-- TODO add routes -->
+          <router-link
+            v-for="route in dashboardRoutes"
+            :key="route.name"
+            :to="route"
+          >{{route.displayName}}</router-link>
         </div>
       </div>
       <div class="col-8 mx-auto">
@@ -22,8 +27,14 @@
 </template>
 
 <script>
+import { dashboardRoutes } from "../router/index";
 export default {
   name: "Dashboard",
+  data() {
+    return {
+      dashboardRoutes
+    };
+  },
   computed: {
     routeName() {
       return this.$route.name.slice(this.$route.name.lastIndexOf(".") + 1);

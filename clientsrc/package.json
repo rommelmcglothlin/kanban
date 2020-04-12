@@ -1,5 +1,5 @@
 {
-  "name": "codeworks-starter",
+  "name": "kanban-it",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,9 +13,7 @@
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
-    "vuex": "^3.1.2"
-  },
-  "devDependencies": {
+    "vuex": "^3.1.2",
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-plugin-router": "~4.2.0",
     "@vue/cli-plugin-vuex": "~4.2.0",
