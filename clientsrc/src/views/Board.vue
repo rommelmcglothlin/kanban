@@ -58,10 +58,7 @@ export default {
   },
   methods: {
     createList() {
-      this.$store.dispatch("createList", {
-        title: this.editable,
-        boardId: this.$route.params.boardId
-      });
+      this.$store.dispatch("createList", this.editable);
       this.editable = new List();
     }
   }
