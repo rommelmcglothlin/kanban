@@ -31,5 +31,10 @@ class BoardsService {
     }
     return board._id;
   }
+  async update(boardId, newData) {
+    return await dbContext.Boards.findByIdAndUpdate(boardId, newData, {
+      new: true,
+    });
+  }
 }
 export const boardsService = new BoardsService();

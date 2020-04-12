@@ -12,6 +12,7 @@ export class BoardsController extends BaseController {
       .get("/:boardId", this.getBoard)
       .get("/:boardId/lists", this.getListsByBoardId)
       .post("", this.create)
+      .put("/:boardId", this.update)
       .delete("/:boardId", this.delete);
   }
 
@@ -58,6 +59,14 @@ export class BoardsController extends BaseController {
   async delete(req, res, next) {
     try {
       let board = await boardsService.delete(req.params.boardId);
+      res.send(board);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async update(req, res, next) {
+    try {
+      let board = await boardsService.update(req.params.boardId, req.body);
       res.send(board);
     } catch (error) {
       next(error);

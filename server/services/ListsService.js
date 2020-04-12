@@ -47,10 +47,10 @@ class ListsService {
     return deleteList;
   }
 
-  async update(_id, newData) {
+  async update(listId, newData) {
     return await dbContext.Lists.findOneAndUpdate(
       {
-        _id,
+        _id: listId,
         creatorEmail: newData.creatorEmail,
       },
       newData,
