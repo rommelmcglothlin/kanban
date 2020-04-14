@@ -31,6 +31,7 @@ class BoardsService {
     }
     return board._id;
   }
+  //REVIEW Boards may or may not need to be updated (Created the option as a posibility)
   async update(boardId, newData) {
     return await dbContext.Boards.findByIdAndUpdate(boardId, newData, {
       new: true,

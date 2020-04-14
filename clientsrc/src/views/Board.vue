@@ -23,8 +23,8 @@
           </form>
         </div>
       </div>
-      <div>
-        <lists v-for="list in lists" :key="list.id" :listProp="list" />
+      <div class="boxes d-flex align-items-top">
+        <lists class="pl-5" v-for="list in lists" :key="list.id" :list="list" />
       </div>
     </div>
   </div>
@@ -57,8 +57,11 @@ export default {
   },
   methods: {
     createList() {
-      this.$store.dispatch("createList", this.editable);
-      this.editablle = new List();
+      this.$store.dispatch("createList", {
+        title: this.editable.title,
+        boardId: this.$route.params.boardId
+      });
+      this.editable = new List();
     }
   }
 };

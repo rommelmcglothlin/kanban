@@ -1,5 +1,6 @@
 import { Task } from "../models/Task";
 import { $resource } from "./resource";
+import { toastSuccess } from "@bcwdev/quickvue";
 
 export default {
   state: {
@@ -24,8 +25,8 @@ export default {
     },
   },
   actions: {
-    async getTasks({ commit }) {
-      let tasks = await $resource.get("api/listId/tasks");
+    async getAllTasks({ commit }, listId) {
+      let tasks = await $resource.get("api/lists/" + listId + "/tasks");
       commit("setTasks", tasks);
     },
     async getTask({ commit }, id) {
@@ -36,10 +37,24 @@ export default {
       let task = await $resource.post("api/tasks/", taskData);
       commit("setTask", task);
       commit("addTask", task);
+      toastSuccess("Task Added");
     },
     async deleteTask({ commit }, task) {
       await $resource.delete("api/tasks/" + task.id);
       commit("deleteTask", task);
+    },
+  },
+  getters: {
+    tasks(state) {
+      let taskGetter = {};
+      state.tasks.forEach((t) => {
+        if (!taskGetter[t.listId]) {
+          taskGetter[t.listId] = [];
+        }
+        taskGetter[t.listId].push(t);
+      });
+
+      return taskGetter;
     },
   },
 };

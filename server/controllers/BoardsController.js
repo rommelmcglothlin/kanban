@@ -64,6 +64,7 @@ export class BoardsController extends BaseController {
       next(error);
     }
   }
+  //REVIEW Boards may or may not need to be updated (Created the option as a posibility)
   async update(req, res, next) {
     try {
       let board = await boardsService.update(req.params.boardId, req.body);

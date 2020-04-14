@@ -46,7 +46,7 @@ class ListsService {
     }
     return deleteList;
   }
-
+  //REVIEW Lists may or may not need to be updated (Created the option as a posibility)
   async update(listId, newData) {
     return await dbContext.Lists.findOneAndUpdate(
       {

@@ -1,5 +1,6 @@
 import { List } from "../models/List";
 import { $resource } from "./resource";
+import { toastSuccess } from "@bcwdev/quickvue";
 
 export default {
   state: {
@@ -36,6 +37,7 @@ export default {
       let list = await $resource.post("api/lists/", listData);
       commit("setList", list);
       commit("addList", list);
+      toastSuccess("Story Added!");
     },
     async deleteList({ commit }, list) {
       await $resource.delete("api/lists/" + list.id);

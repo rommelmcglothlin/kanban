@@ -21,7 +21,7 @@ class TasksService {
   async getTask(creatorEmail, _id) {
     let task = await dbContext.Tasks.findOne({
       _id,
-      creatorEmail
+      creatorEmail,
     });
     if (!task) {
       throw new BadRequest("Invalid data");
@@ -48,7 +48,7 @@ class TasksService {
     return (
       await dbContext.Tasks.findByIdAndUpdate(taskId, newData),
       {
-        new: true
+        new: true,
       }
     );
   }

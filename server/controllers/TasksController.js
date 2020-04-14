@@ -5,15 +5,15 @@ import { commentsService } from "../services/CommentsService";
 
 export class TasksController extends BaseController {
   constructor() {
-    super("api/");
+    super("api");
     this.router
       .use(auth0Provider.getAuthorizedUserInfo)
-      .get("lists/:listId/tasks", this.getTasksByListId)
-      .get("boards/:boardId/tasks", this.getTasksByBoardId)
-      .get("tasks/:taskId", this.getSingleTask)
-      .post("tasks/", this.create)
-      .put("tasks/:taskId", this.update)
-      .delete("tasks/:taskId", this.delete);
+      .get("/lists/:listId/tasks", this.getTasksByListId)
+      .get("/boards/:boardId/tasks", this.getTasksByBoardId)
+      .get("/tasks/:taskId", this.getSingleTask)
+      .post("/tasks/", this.create)
+      .put("/tasks/:taskId", this.update)
+      .delete("/tasks/:taskId", this.delete);
   }
 
   async getTasksByListId(req, res, next) {

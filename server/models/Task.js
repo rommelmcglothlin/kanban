@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 export const TaskSchema = new Schema(
   {
-    title: { type: String, required: true },
+    name: { type: String, required: true },
+    description: { type: String },
     listId: { type: Schema.Types.ObjectId, rel: "list", required: true },
     creatorEmail: { type: String, required: true },
   },
