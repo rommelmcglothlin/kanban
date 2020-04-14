@@ -5,36 +5,22 @@ import { commentsService } from "../services/CommentsService";
 
 export class TasksController extends BaseController {
   constructor() {
-    super("api");
+    super("api/tasks");
     this.router
       .use(auth0Provider.getAuthorizedUserInfo)
-      .get("/lists/:listId/tasks", this.getTasksByListId)
-      .get("/boards/:boardId/tasks", this.getTasksByBoardId)
-      .get("/tasks/:taskId", this.getSingleTask)
-      .post("/tasks/", this.create)
-      .put("/tasks/:taskId", this.update)
-      .delete("/tasks/:taskId", this.delete);
+      .get("", this.getAllTasks)
+      .get("/:taskId", this.getSingleTask)
+      .post("", this.create)
+      .put("/:taskId", this.update)
+      .delete("/:taskId", this.delete);
   }
 
-  async getTasksByListId(req, res, next) {
+  async getAllTasks(req, res, next) {
     try {
-      let tasks = await tasksService.getTasks(
-        req.userInfo.email,
-        req.params.listId
-      );
-      res.send(tasks);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async getTasksByBoardId(req, res, next) {
-    try {
-      let tasks = await tasksService.tasksByBoardId(
-        req.userInfo.email,
-        req.params.boardId
-      );
-      res.send(tasks);
+      let tasks = await tasksService.findAll({
+        creatorEmail: req.userInfo.email,
+      });
+      return res.send(tasks);
     } catch (error) {
       next(error);
     }
