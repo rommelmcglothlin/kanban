@@ -40,7 +40,7 @@ export class ListsController extends BaseController {
 
   async getTasksByListId(req, res, next) {
     try {
-      let tasks = await tasksService.getTasks(req.params.listId);
+      let tasks = await tasksService.getTasks({ _id: req.params.listId });
       res.send(tasks);
     } catch (error) {
       next(error);

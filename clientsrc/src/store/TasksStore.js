@@ -35,7 +35,7 @@ export default {
     },
     async createTask({ commit }, taskData) {
       let task = await $resource.post("api/tasks/", taskData);
-      commit("setTask", task);
+      //commit("setTask", task);
       commit("addTask", task);
       toastSuccess("Task Added");
     },
