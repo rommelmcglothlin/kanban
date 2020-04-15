@@ -1,7 +1,7 @@
 <template>
   <div class="task" draggable="true" @dragstart.capture="moving" @dragend="dragEnd">
     <div class="pt-2 card text-light bg-dark mb-3">
-      <div class="card-header">
+      <div class="card-header evenly-distributed-children">
         <span>
           <i class="fa fa-arrows-alt grab"></i>
         </span>
@@ -110,5 +110,9 @@ export default {
 .grab {
   cursor: -webkit-grab;
   cursor: grab;
+}
+.evenly-distributed-children {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

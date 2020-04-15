@@ -35,12 +35,14 @@
               />
             </div>
             <div>
-              <button class="btn btn-primary ml-2 mt-2">Add Task</button>
+              <button class="pb-2 btn btn-primary ml-2 mt-2">Add Task</button>
             </div>
           </form>
         </div>
-        <div>
-          <tasks v-for="task in tasks" :key="task.id" :task="task" />
+        <div class="overflow-scroll-gradient">
+          <div class="overflow-scroll-gradient-scroller">
+            <tasks v-for="task in tasks" :key="task.id" :task="task" />
+          </div>
         </div>
       </div>
     </div>
@@ -118,5 +120,27 @@ export default {
   min-height: 80vh;
   width: 300px;
   background-color: var(--info);
+}
+.overflow-scroll-gradient {
+  position: relative;
+}
+
+.overflow-scroll-gradient::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  //width: 250px;
+  height: 30px;
+  background: linear-gradient(transparent);
+  pointer-events: none;
+}
+
+.overflow-scroll-gradient-scroller {
+  overflow-y: scroll;
+  //background: white;
+  //width: 240px;
+  height: 50vh;
+  padding: 15px;
+  line-height: 1.2;
 }
 </style>

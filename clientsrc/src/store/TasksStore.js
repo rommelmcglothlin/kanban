@@ -11,9 +11,9 @@ export default {
     setTasks(state, tasks = []) {
       state.tasks = tasks;
     },
-    // setTask(state, task = new Task()) {
-    //   state.task = task;
-    // },
+    setTask(state, task = new Task()) {
+      state.task = task;
+    },
     addTask(state, task) {
       state.tasks.push(new Task(task));
     },
@@ -39,10 +39,10 @@ export default {
       commit("updateTask", movedTask);
     },
 
-    // async getTask({ commit }, id) {
-    //   let tasks = await $resource.get("api/tasks/" + id);
-    //   commit("setTask", tasks);
-    // },
+    async getTask({ commit }, id) {
+      let tasks = await $resource.get("api/tasks/" + id);
+      commit("setTask", tasks);
+    },
     async createTask({ commit }, taskData) {
       let task = await $resource.post("api/tasks/", taskData);
       commit("addTask", task);
