@@ -2,15 +2,20 @@ import { dbContext } from "../db/DbContext";
 import { BadRequest } from "../utils/Errors";
 
 class CommentsService {
-  async getComments(creatorEmail, task) {
-    //TODO: add a check for email later
-    let comments = await dbContext.Comments.find({
-      creatorEmail,
-      task,
-    });
+  async getComments(creatorEmail) {
+    let comments = await dbContext.Comments.find(creatorEmail);
     if (!comments) {
       throw new BadRequest("Invalid data");
     }
+    return comments;
+  }
+
+  async getByTaskId(task) {
+    let comments = await dbContext.Comments.find(task.id);
+    if (!task) {
+      throw new BadRequest("Invalid ID");
+    }
+    return comments;
   }
 
   async getComment(creatorEmail, _id) {
@@ -31,11 +36,8 @@ class CommentsService {
     return comment;
   }
 
-  async delete(creatorEmail, _id) {
-    let deleteComment = await dbContext.Comments.findByIdAndRemove({
-      creatorEmail,
-      _id,
-    });
+  async delete(_id) {
+    let deleteComment = await dbContext.Comments.findByIdAndRemove(_id);
     if (!deleteComment) {
       throw new BadRequest("Invalid data");
     }

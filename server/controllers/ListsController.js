@@ -66,9 +66,9 @@ export class ListsController extends BaseController {
     }
   }
 
+  // REVIEW may not need to use this function at all
   async update(req, res, next) {
     try {
-      // make sure t
       req.body.creatorEmail = req.userInfo.email;
       let list = await listsService.update(req.params.listId, req.body);
       res.send(list);

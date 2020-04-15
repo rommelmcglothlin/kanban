@@ -10,9 +10,19 @@ export class TasksController extends BaseController {
       .use(auth0Provider.getAuthorizedUserInfo)
       .get("", this.getAllTasks)
       .get("/:taskId", this.getSingleTask)
+      .get("/taskId/comments", this.getCommentsByTaskId)
       .post("", this.create)
       .put("/:taskId", this.update)
       .delete("/:taskId", this.delete);
+  }
+
+  async getCommentsByTaskId(req, res, next) {
+    try {
+      let comments = await commentsService.getByTaskId(req.params.taskId);
+      res.send(comments);
+    } catch (error) {
+      next(error);
+    }
   }
 
   async getAllTasks(req, res, next) {
@@ -48,13 +58,12 @@ export class TasksController extends BaseController {
 
   async delete(req, res, next) {
     try {
-      let task = await tasksService.delete(
-        req.userInfo.email,
-        req.params.taskId
-      );
+      let task = await tasksService.delete({
+        _id: req.params.taskId,
+      });
       res.send(task);
-    } catch (e) {
-      next(e);
+    } catch (error) {
+      next(error);
     }
   }
 
@@ -62,8 +71,8 @@ export class TasksController extends BaseController {
     try {
       let task = await tasksService.update(req.params.taskId, req.body);
       res.send(task);
-    } catch (e) {
-      next(e);
+    } catch (error) {
+      next(error);
     }
   }
 }

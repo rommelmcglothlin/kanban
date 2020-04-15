@@ -13,26 +13,19 @@
         <button class="btn btn btn-success btn-block">Create Board</button>
       </div>
     </form>
-    <div class="boards">
-      <div class="card p-2 my-2 elevation-4" v-for="board in boards" :key="board.id">
-        <span>
-          <router-link :to="{name: 'Board', params: {boardId: board.id}}">{{board.name}}</router-link>
-          <i
-            v-if="$auth.isAuthenticated && $auth.user.email == board.creatorEmail"
-            class="fa fa-trash text-danger mr-2 ml-3"
-            style="font-size:18px;"
-            @click="deleteBoard(board)"
-          ></i>
-        </span>
-      </div>
+    <div>
+      <board-card v-for="board in boards" :key="board.id" :board="board" />
     </div>
   </div>
 </template>
 <script>
 import { Board } from "../models/Board";
+import BoardCard from "../components/BoardCard";
 export default {
   name: "Boards",
-  components: {},
+  components: {
+    BoardCard
+  },
   computed: {
     profile() {
       return this.$store.state.profile;
@@ -50,15 +43,15 @@ export default {
     createBoard() {
       this.$store.dispatch("createBoard", this.editable);
       this.editable = new Board();
-    },
-    async deleteBoard(board) {
-      let yes = await this.$confirm("Delete the board?");
-      if (!yes) {
-        return;
-      } else {
-      }
-      this.$store.dispatch("deleteBoard", board);
     }
+    // async deleteBoard(board) {
+    //   let yes = await this.$confirm("Delete the board?");
+    //   if (!yes) {
+    //     return;
+    //   } else {
+    //   }
+    //   this.$store.dispatch("deleteBoard", board);
+    // }
   }
 };
 </script>

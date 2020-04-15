@@ -8,10 +8,10 @@
       <div class="card-body" droppable="true" @drop.capture="addTask" @dragover.prevent>
         <div>
           <div @click="showInput = !showInput">
-            <span>
-              <i :class="showInput ?  'fa fa-angle-down' : 'fa fa-angle-right'"></i>
-            </span>
             <span class="font-bold">Add Task</span>
+            <span class="pl-2">
+              <i :class="showInput ?  'fa fa-minus' : 'fa fa-plus'"></i>
+            </span>
           </div>
         </div>
         <div v-if="showInput">

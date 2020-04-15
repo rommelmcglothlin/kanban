@@ -3,7 +3,9 @@ const Schema = mongoose.Schema;
 
 export const CommentSchema = new Schema(
   {
-    title: { type: String, required: true },
+    note: { type: String, required: true },
+    listId: { type: Schema.Types.ObjectId, rel: "list", required: true },
+    boardId: { type: Schema.Types.ObjectId, red: "board", require: true },
     taskId: { type: Schema.Types.ObjectId, rel: "task", required: true },
     creatorEmail: { type: String, required: true },
   },

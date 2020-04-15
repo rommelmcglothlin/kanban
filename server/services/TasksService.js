@@ -35,8 +35,8 @@ class TasksService {
     return task;
   }
 
-  async delete(_id, creatorEmail) {
-    let task = await dbContext.Tasks.findByIdAndDelete(_id, creatorEmail);
+  async delete(_id) {
+    let task = await dbContext.Tasks.findByIdAndDelete(_id);
     if (!task) {
       throw new BadRequest("Invalid data");
     }

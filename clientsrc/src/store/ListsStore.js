@@ -11,9 +11,6 @@ export default {
     setLists(state, lists = []) {
       state.lists = lists;
     },
-    setList(state, list = new List()) {
-      state.list = list;
-    },
     addList(state, list) {
       state.lists.push(new List(list));
     },
@@ -29,13 +26,8 @@ export default {
       let lists = await $resource.get("api/boards/" + boardId + "/lists");
       commit("setLists", lists);
     },
-    async getList({ commit }, id) {
-      let lists = await $resource.get("api/lists/" + id);
-      commit("setList", lists);
-    },
     async createList({ commit }, listData) {
       let list = await $resource.post("api/lists/", listData);
-      commit("setList", list);
       commit("addList", list);
       toastSuccess("Story Added!");
     },

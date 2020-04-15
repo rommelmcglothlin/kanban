@@ -1,5 +1,6 @@
 import { Comment } from "../models/Comment";
 import { $resource } from "./resource";
+import { toastSuccess } from "@bcwdev/quickvue";
 
 export default {
   state: {
@@ -24,8 +25,8 @@ export default {
     },
   },
   actions: {
-    async getComments({ commit }) {
-      let comments = await $resource.get("api/taskId/comments");
+    async getComments({ commit }, taskId) {
+      let comments = await $resource.get("api/tasks/" + taskId + "/comments");
       commit("setComments", comments);
     },
     async getComment({ commit }, id) {
@@ -34,12 +35,24 @@ export default {
     },
     async createComment({ commit }, commentData) {
       let comment = await $resource.post("api/comments/", commentData);
-      commit("setComment", comment);
       commit("addComment", comment);
+      toastSuccess("Comment Added");
     },
     async deleteComment({ commit }, comment) {
       await $resource.delete("api/comments/" + comment.id);
       commit("deleteComment", comment);
+    },
+  },
+  getters: {
+    comments(state) {
+      let commentsGetter = {};
+      state.comments.forEach((c) => {
+        if (!commentsGetter[c.taskId]) {
+          commentsGetter[c.taskId] = [];
+        }
+        commentsGetter[c.taskId].push(c);
+      });
+      return commentsGetter;
     },
   },
 };

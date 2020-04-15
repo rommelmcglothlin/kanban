@@ -14,13 +14,12 @@ export class CommentsController extends BaseController {
       .post("", this.create)
       .put("/:commentId", this.update);
   }
-  /* gets all comments for a particular task */
+
   async getAllComments(req, res, next) {
     try {
-      let comments = await commentsService.getComments(
-        req.userInfo.email,
-        req.params.taskId
-      );
+      let comments = await commentsService.getComments({
+        creatorEmail: req.userInfo.email,
+      });
       res.send(comments);
     } catch (error) {
       next(error);
@@ -28,10 +27,10 @@ export class CommentsController extends BaseController {
   }
   async getSingleComment(req, res, next) {
     try {
-      let comment = await commentsService.getComment(
-        req.userInfo.email,
-        req.params.commentId
-      );
+      let comment = await commentsService.getComment({
+        creatorEmail: req.userInfo.email,
+        _id: req.params.commentId,
+      });
       res.send(comment);
     } catch (error) {
       next(error);
@@ -49,10 +48,9 @@ export class CommentsController extends BaseController {
 
   async delete(req, res, next) {
     try {
-      let comment = await commentsService.delete(
-        req.userInfo.email,
-        req.params.commentId
-      );
+      let comment = await commentsService.delete({
+        _id: req.params.commentId,
+      });
       res.send(comment);
     } catch (e) {
       next(e);
