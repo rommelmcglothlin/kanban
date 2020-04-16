@@ -4,7 +4,7 @@ import { BadRequest } from "../utils/Errors";
 class BoardsService {
   async findAllBoards(creatorEmail) {
     let boards = await dbContext.Boards.find(creatorEmail);
-    if (!creatorEmail) {
+    if (!boards) {
       throw new BadRequest("Invalid email");
     }
     return boards;

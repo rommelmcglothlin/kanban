@@ -2,16 +2,24 @@ import { dbContext } from "../db/DbContext";
 import { BadRequest } from "../utils/Errors";
 
 class TasksService {
+  async tasksByBoardId(boardId) {
+    let tasks = await dbContext.Tasks.find({ boardId: boardId });
+    if (!tasks) {
+      throw new BadRequest("Invalid ID");
+    }
+    return tasks;
+  }
+
   async findAll(creatorEmail) {
     let tasks = await dbContext.Tasks.find(creatorEmail);
-    if (!creatorEmail) {
+    if (!tasks) {
       throw new BadRequest("Invalid email");
     }
     return tasks;
   }
   async getTasks(listId) {
     let tasks = await dbContext.Tasks.find({ listId });
-    if (!listId) {
+    if (!tasks) {
       throw new BadRequest("Invalid data");
     }
     return tasks;

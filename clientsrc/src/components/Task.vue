@@ -1,5 +1,12 @@
 <template>
-  <div class="task" draggable="true" @dragstart.capture="moving" @dragend="dragEnd">
+  <div
+    class="task"
+    draggable="true"
+    @dragstart.capture="moving"
+    @dragover.prevent
+    @dragend="dragEnd"
+    ref="draggable"
+  >
     <div class="pt-2 card text-light bg-dark mb-3">
       <div class="card-header evenly-distributed-children">
         <span>
@@ -12,7 +19,7 @@
       </div>
       <div class="card-body">
         <p class="card-text">{{task.description}}</p>
-        <comments v-for="comment in comments" :key="comment.id" :commentData="comment" />
+        <comments v-for="comment in comments" :key="comment.id" :comment="comment" />
         <div>
           <div @click="showComments = !showComments">
             <span class="pr-2">
@@ -71,28 +78,30 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("getComments", this.task.id);
+    this.$store.dispatch("getAllComments", this.$route.params.boardId);
   },
   methods: {
     async createComment() {
       this.$store.dispatch("createComment", {
         note: this.editable.note,
-        // listId: this.list.id,
-        taskId: this.task.id
-        // boardId: this.$route.params.boardId
+        //listId: this.list.id,
+        taskId: this.task.id,
+        boardId: this.$route.params.boardId
       });
     },
     moving(event) {
-      let from = this.listId;
-      event.dataTransfer.setData("data", JSON.stringify(this.taskData));
+      let from = this.task.listId;
+      event.dataTransfer.setData("data", JSON.stringify(this.task));
       event.dataTransfer.setData("from", from);
-      console.log("moving");
+      this.$refs.draggablel.classList.add("dragging");
     },
     dragEnd() {
-      console.log("the item is no longer being dragged");
+      try {
+        this.$refs.draggable.classList.remove("dragging");
+      } catch (error) {}
     },
     dragging() {
-      console.log("we are dragging the item", this.itemData);
+      console.log("we are dragging the item", this.task);
     },
     async deleteTask(task) {
       let yes = await this.$confirm("Delete the Task?");

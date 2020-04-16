@@ -25,8 +25,8 @@ export default {
     },
   },
   actions: {
-    async getComments({ commit }, taskId) {
-      let comments = await $resource.get("api/tasks/" + taskId + "/comments");
+    async getAllComments({ commit }, boardId) {
+      let comments = await $resource.get("api/boards/" + boardId + "/comments");
       commit("setComments", comments);
     },
     async getComment({ commit }, id) {

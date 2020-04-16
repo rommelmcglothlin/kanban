@@ -4,14 +4,9 @@
     <ul class="list-group text-light list-group-flush">
       <li class="list-group-item">
         {{comment.note}}
-        <!-- <span>
-          <i
-            v-if="$auth.isAuthenticated && $auth.user.email == commentProp.creatorEmail"
-            class="fa fa-trash text-danger mt-n4 float-right pointer"
-            style="font-size:18px;"
-            @click="deleteComment(comment)"
-          ></i>
-        </span>-->
+        <span>
+          <i class="fa fa-trash text-danger mt-n4" @click="deleteComment(comment)"></i>
+        </span>
       </li>
     </ul>
   </div>
@@ -21,7 +16,7 @@ import { Comment } from "../models/Comment";
 export default {
   name: "Comments",
   props: {
-    commentData: {
+    comment: {
       type: Object,
       required: true
     }

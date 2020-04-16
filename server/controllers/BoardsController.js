@@ -2,7 +2,8 @@ import BaseController from "../utils/BaseController";
 import auth0Provider from "@bcwdev/auth0provider";
 import { boardsService } from "../services/BoardsService";
 import { listsService } from "../services/ListsService";
-
+import { tasksService } from "../services/TasksService";
+import { commentsService } from "../services/CommentsService";
 export class BoardsController extends BaseController {
   constructor() {
     super("api/boards");
@@ -11,6 +12,8 @@ export class BoardsController extends BaseController {
       .get("", this.getAllBoards)
       .get("/:boardId", this.getBoard)
       .get("/:boardId/lists", this.getListsByBoardId)
+      .get("/:boardId/tasks", this.getTasksByBoardId)
+      .get("/:boardId/comments", this.getCommentsByBoardId)
       .post("", this.create)
       .put("/:boardId", this.update)
       .delete("/:boardId", this.delete);
@@ -34,6 +37,25 @@ export class BoardsController extends BaseController {
         creatorEmail: req.userInfo.email,
       });
       res.send(board);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getTasksByBoardId(req, res, next) {
+    try {
+      let tasks = await tasksService.tasksByBoardId(req.params.boardId);
+      res.send(tasks);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async getCommentsByBoardId(req, res, next) {
+    try {
+      let comments = await commentsService.commentsByBoardId(
+        req.params.boardId
+      );
+      res.send(comments);
     } catch (error) {
       next(error);
     }

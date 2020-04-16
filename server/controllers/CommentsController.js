@@ -10,9 +10,9 @@ export class CommentsController extends BaseController {
       .use(auth0Provider.getAuthorizedUserInfo)
       .get("", this.getAllComments)
       .get("/:commentId", this.getSingleComment)
-      .delete("/:commentId", this.delete)
       .post("", this.create)
-      .put("/:commentId", this.update);
+      .put("/:commentId", this.update)
+      .delete("/:commentId", this.delete);
   }
 
   async getAllComments(req, res, next) {

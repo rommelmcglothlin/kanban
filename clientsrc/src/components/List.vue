@@ -5,7 +5,15 @@
         {{list.title}}
         <i class="fa fa-trash text-danger mr-2" @click="deleteList"></i>
       </div>
-      <div class="card-body" droppable="true" @drop.capture="addTask" @dragover.prevent>
+      <div
+        class="card-body"
+        droppable="true"
+        @dragenter="dragEnter"
+        @dragleave="dragLeave"
+        @drop.capture="addTask"
+        @dragover.prevent
+        ref="droppable"
+      >
         <div>
           <div @click="showInput = !showInput">
             <span class="font-bold">Add Task</span>
@@ -76,7 +84,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("getAllTasks", this.list.id);
+    // this.$store.dispatch("getAllTasks", this.list.id);
   },
   methods: {
     createTask() {
@@ -89,15 +97,19 @@ export default {
       this.editable = new Task();
     },
     addTask() {
-      // get the item off of the event storage
+      this.$refs.droppable.classList.remove("droppable");
       let item = JSON.parse(event.dataTransfer.getData("data"));
-      // get the starting location off of the event storage
       let from = event.dataTransfer.getData("from");
-      // don't allow drops in the same room
       if (from == this.list.id) {
         return;
       }
       this.$store.dispatch("moveTask", { task, to: this.list.id });
+    },
+    dragEnter() {
+      this.$refs.droppable.classList.add("droppable");
+    },
+    dragLeave() {
+      this.$refs.droppable.classList.remove("droppable");
     },
     async deleteList() {
       let yes = await this.$confirm("Delete the List?");

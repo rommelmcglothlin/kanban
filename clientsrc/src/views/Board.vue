@@ -41,6 +41,7 @@ export default {
   mounted() {
     this.$store.dispatch("getBoard", this.$route.params.boardId);
     this.$store.dispatch("getAllLists", this.$route.params.boardId);
+    this.$store.dispatch("getAllTasks", this.$route.params.boardId);
   },
   computed: {
     board() {
