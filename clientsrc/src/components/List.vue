@@ -10,7 +10,7 @@
         droppable="true"
         @dragenter="dragEnter"
         @dragleave="dragLeave"
-        @drop.capture="addTask"
+        @drop.capture="moveTask"
         @dragover.prevent
         ref="droppable"
       >
@@ -96,9 +96,9 @@ export default {
       });
       this.editable = new Task();
     },
-    addTask() {
+    moveTask() {
       this.$refs.droppable.classList.remove("droppable");
-      let item = JSON.parse(event.dataTransfer.getData("data"));
+      let task = JSON.parse(event.dataTransfer.getData("data"));
       let from = event.dataTransfer.getData("from");
       if (from == this.list.id) {
         return;
@@ -109,6 +109,7 @@ export default {
       this.$refs.droppable.classList.add("droppable");
     },
     dragLeave() {
+      console.log("moving this task");
       this.$refs.droppable.classList.remove("droppable");
     },
     async deleteList() {

@@ -17,7 +17,7 @@ class TasksService {
     }
     return tasks;
   }
-  async getTasks(listId) {
+  async getTaskByList(listId) {
     let tasks = await dbContext.Tasks.find({ listId });
     if (!tasks) {
       throw new BadRequest("Invalid data");
@@ -25,10 +25,9 @@ class TasksService {
     return tasks;
   }
 
-  async getTask(creatorEmail, _id) {
-    let task = await dbContext.Tasks.findOne({
-      _id,
-      creatorEmail,
+  async getTask(taskId) {
+    let task = await dbContext.Tasks.findById({
+      taskId,
     });
     if (!task) {
       throw new BadRequest("Invalid data");
@@ -51,13 +50,16 @@ class TasksService {
     return task;
   }
 
-  async update(taskId, newData) {
-    return (
-      await dbContext.Tasks.findByIdAndUpdate(taskId, newData),
-      {
-        new: true,
-      }
+  async update(task) {
+    let updatedTask = await this.getTask(task);
+    // @ts-ignore
+    updatedTask.listId = task.listId;
+    let newTask = await dbContext.Tasks.findByIdAndUpdate(
+      task.id,
+      updatedTask,
+      { new: true }
     );
+    return newTask;
   }
 }
 

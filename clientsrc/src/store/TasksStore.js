@@ -11,9 +11,6 @@ export default {
     setTasks(state, tasks = []) {
       state.tasks = tasks;
     },
-    // setTask(state, task = new Task()) {
-    //   state.task = task;
-    // },
     addTask(state, task) {
       state.tasks.push(new Task(task));
     },
@@ -35,20 +32,14 @@ export default {
     },
     async moveTask({ commit }, { task, to }) {
       task.listId = to;
-      let movedTask = await $resource.put("api/tasks/", task);
-      commit("updateTask", movedTask);
+      let moveMe = await $resource.put("api/tasks/" + task.id, task);
+      commit("updateTask", moveMe);
     },
-
-    // async getTask({ commit }, id) {
-    //   let tasks = await $resource.get("api/tasks/" + id);
-    //   commit("setTask", tasks);
-    // },
     async createTask({ commit }, taskData) {
       let task = await $resource.post("api/tasks/", taskData);
       commit("addTask", task);
       toastSuccess("Task Added");
     },
-
     async deleteTask({ commit }, task) {
       await $resource.delete("api/tasks/" + task.id);
       commit("deleteTask", task);

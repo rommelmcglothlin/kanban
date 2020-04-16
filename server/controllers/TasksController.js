@@ -10,9 +10,9 @@ export class TasksController extends BaseController {
       .use(auth0Provider.getAuthorizedUserInfo)
       .get("", this.getAllTasks)
       .get("/:taskId", this.getSingleTask)
-      .get("/taskId/comments", this.getCommentsByTaskId)
+      .get("/:taskId/comments", this.getCommentsByTaskId)
       .post("", this.create)
-      .put("/:taskId", this.update)
+      .put("", this.update)
       .delete("/:taskId", this.delete);
   }
 
@@ -37,10 +37,10 @@ export class TasksController extends BaseController {
   }
   async getSingleTask(req, res, next) {
     try {
-      let task = await tasksService.getTask(
-        req.userInfo.email,
-        req.params.taskId
-      );
+      let task = await tasksService.getTask({
+        creatorEmail: req.userInfo.email,
+        _id: req.params.taskId,
+      });
       res.send(task);
     } catch (error) {
       next(error);
@@ -69,7 +69,7 @@ export class TasksController extends BaseController {
 
   async update(req, res, next) {
     try {
-      let task = await tasksService.update(req.params.taskId, req.body);
+      let task = await tasksService.update(req.body);
       res.send(task);
     } catch (error) {
       next(error);

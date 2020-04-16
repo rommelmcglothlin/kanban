@@ -1,4 +1,3 @@
-
 <template>
   <div class="comments">
     <ul class="list-group text-light list-group-flush">

@@ -2,10 +2,10 @@
   <div
     class="task"
     draggable="true"
-    @dragstart.capture="moving"
-    @dragover.prevent
-    @dragend="dragEnd"
     ref="draggable"
+    @dragover.prevent
+    @dragstart.capture="moving"
+    @dragend="dragEnd"
   >
     <div class="pt-2 card text-light bg-dark mb-3">
       <div class="card-header evenly-distributed-children">
@@ -89,11 +89,12 @@ export default {
         boardId: this.$route.params.boardId
       });
     },
-    moving(event) {
-      let from = this.task.listId;
+    moving() {
+      let from = this.listId;
       event.dataTransfer.setData("data", JSON.stringify(this.task));
       event.dataTransfer.setData("from", from);
-      this.$refs.draggablel.classList.add("dragging");
+      this.$refs.draggable.classList.add("dragging");
+      event.dataTransfer.setDragImage(this.$refs.draggable, 0, 0);
     },
     dragEnd() {
       try {
