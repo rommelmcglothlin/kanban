@@ -7,7 +7,11 @@
       </div>
       <div class="mb-3">
         <label for="name">Description:</label>
-        <input class="form-control" type="text" v-model="editable.description" />
+        <input
+          class="form-control"
+          type="text"
+          v-model="editable.description"
+        />
       </div>
       <div class="my-3">
         <button class="btn btn btn-success btn-block">Create Board</button>
@@ -24,7 +28,7 @@ import BoardCard from "../components/BoardCard";
 export default {
   name: "Boards",
   components: {
-    BoardCard
+    BoardCard,
   },
   computed: {
     profile() {
@@ -32,28 +36,19 @@ export default {
     },
     boards() {
       return this.$store.state.boardsStore.boards;
-    }
+    },
   },
   data() {
     return {
-      editable: new Board()
+      editable: new Board(),
     };
   },
   methods: {
     createBoard() {
       this.$store.dispatch("createBoard", this.editable);
       this.editable = new Board();
-    }
-    // async deleteBoard(board) {
-    //   let yes = await this.$confirm("Delete the board?");
-    //   if (!yes) {
-    //     return;
-    //   } else {
-    //   }
-    //   this.$store.dispatch("deleteBoard", board);
-    // }
-  }
+    },
+  },
 };
 </script>
-<style>
-</style>
+<style></style>

@@ -2,7 +2,7 @@
   <div>
     <div class="card text-center bg-light mb-3" style="width: 18rem;">
       <div class="card-header justify-content-between">
-        {{list.title}}
+        {{ list.title }}
         <i class="fa fa-trash text-danger mr-2" @click="deleteList"></i>
       </div>
       <div
@@ -18,7 +18,7 @@
           <div @click="showInput = !showInput">
             <span class="font-bold">Add Task</span>
             <span class="pl-2">
-              <i :class="showInput ?  'fa fa-minus' : 'fa fa-plus'"></i>
+              <i :class="showInput ? 'fa fa-minus' : 'fa fa-plus'"></i>
             </span>
           </div>
         </div>
@@ -66,22 +66,22 @@ import Tasks from "../components/Task";
 export default {
   name: "Lists",
   components: {
-    Tasks
+    Tasks,
   },
   props: {
-    list: { type: Object, required: true }
+    list: { type: Object, required: true },
   },
   data() {
     return {
       editable: new Task(),
-      showInput: false
+      showInput: false,
     };
   },
 
   computed: {
     tasks() {
       return this.$store.getters.tasks[this.list.id];
-    }
+    },
   },
   mounted() {},
   methods: {
@@ -90,7 +90,7 @@ export default {
         name: this.editable.name,
         description: this.editable.description,
         listId: this.list.id,
-        boardId: this.$route.params.boardId
+        boardId: this.$route.params.boardId,
       });
       this.editable = new Task();
     },
@@ -117,8 +117,8 @@ export default {
       } else {
         this.$store.dispatch("deleteList", this.list);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -140,7 +140,6 @@ export default {
   content: "";
   position: absolute;
   bottom: 0;
-  //width: 250px;
   height: 30px;
   background: linear-gradient(transparent);
   pointer-events: none;
@@ -148,8 +147,6 @@ export default {
 
 .overflow-scroll-gradient-scroller {
   overflow-y: scroll;
-  //background: white;
-  //width: 240px;
   height: 50vh;
   padding: 15px;
   line-height: 1.2;

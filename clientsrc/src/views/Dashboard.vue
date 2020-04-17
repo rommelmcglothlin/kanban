@@ -3,18 +3,18 @@
     <div class="row mt-3">
       <div class="col-2 mx-auto">
         <div class="d-flex flex-column links">
-          <!-- TODO add routes -->
           <router-link
             v-for="route in dashboardRoutes"
             :key="route.name"
             :to="route"
-          >{{route.displayName}}</router-link>
+            >{{ route.displayName }}</router-link
+          >
         </div>
       </div>
       <div class="col-8 mx-auto">
         <div class="card shadow">
           <div class="p-3">
-            <h4>{{routeName}}</h4>
+            <h4>{{ routeName }}</h4>
             <hr class="m-0 pb-0" />
           </div>
           <div class="card-body pt-1 m-0">
@@ -32,14 +32,14 @@ export default {
   name: "Dashboard",
   data() {
     return {
-      dashboardRoutes
+      dashboardRoutes,
     };
   },
   computed: {
     routeName() {
       return this.$route.name.slice(this.$route.name.lastIndexOf(".") + 1);
-    }
-  }
+    },
+  },
 };
 </script>
 

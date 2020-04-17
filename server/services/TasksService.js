@@ -49,8 +49,6 @@ class TasksService {
   }
 
   async update(task) {
-    // let updatedTask = await this.getTask(task.id);
-    // @ts-ignore
     let newTask = await dbContext.Tasks.findByIdAndUpdate(task.id, task, {
       new: true,
     });
