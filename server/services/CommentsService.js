@@ -37,7 +37,7 @@ class CommentsService {
     return comment;
   }
   async create(commentData) {
-    let comment = await dbContext.Comments.find(commentData);
+    let comment = await dbContext.Comments.create(commentData);
     if (!comment) {
       throw new BadRequest("Invalid email");
     }

@@ -1,11 +1,11 @@
 <template>
   <div class="comments">
-    <ul class="list-group text-light list-group-flush">
+    <ul class="list-group text-dark list-group-flush">
       <li class="list-group-item">
-        {{comment.note}}
         <span>
           <i class="fa fa-trash text-danger mt-n4" @click="deleteComment(comment)"></i>
         </span>
+        {{comment.note}}
       </li>
     </ul>
   </div>

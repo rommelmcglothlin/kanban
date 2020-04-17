@@ -26,9 +26,7 @@ class TasksService {
   }
 
   async getTask(taskId) {
-    let task = await dbContext.Tasks.findById({
-      taskId,
-    });
+    let task = await dbContext.Tasks.findById(taskId);
     if (!task) {
       throw new BadRequest("Invalid data");
     }
@@ -51,9 +49,8 @@ class TasksService {
   }
 
   async update(task) {
-    let updatedTask = await this.getTask(task);
+    // let updatedTask = await this.getTask(task.id);
     // @ts-ignore
-    updatedTask.listId = task.listId;
     let newTask = await dbContext.Tasks.findByIdAndUpdate(task.id, task, {
       new: true,
     });
