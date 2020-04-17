@@ -84,7 +84,6 @@ export default {
     async createComment() {
       this.$store.dispatch("createComment", {
         note: this.editable.note,
-        //listId: this.list.id,
         taskId: this.task.id,
         boardId: this.$route.params.boardId
       });

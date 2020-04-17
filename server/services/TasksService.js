@@ -54,11 +54,9 @@ class TasksService {
     let updatedTask = await this.getTask(task);
     // @ts-ignore
     updatedTask.listId = task.listId;
-    let newTask = await dbContext.Tasks.findByIdAndUpdate(
-      task.id,
-      updatedTask,
-      { new: true }
-    );
+    let newTask = await dbContext.Tasks.findByIdAndUpdate(task.id, task, {
+      new: true,
+    });
     return newTask;
   }
 }

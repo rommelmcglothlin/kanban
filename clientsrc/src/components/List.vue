@@ -83,9 +83,7 @@ export default {
       return this.$store.getters.tasks[this.list.id];
     }
   },
-  mounted() {
-    // this.$store.dispatch("getAllTasks", this.list.id);
-  },
+  mounted() {},
   methods: {
     createTask() {
       this.$store.dispatch("createTask", {

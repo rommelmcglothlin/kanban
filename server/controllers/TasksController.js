@@ -12,7 +12,7 @@ export class TasksController extends BaseController {
       .get("/:taskId", this.getSingleTask)
       .get("/:taskId/comments", this.getCommentsByTaskId)
       .post("", this.create)
-      .put("", this.update)
+      .put("/:taskId", this.update)
       .delete("/:taskId", this.delete);
   }
 
@@ -38,7 +38,6 @@ export class TasksController extends BaseController {
   async getSingleTask(req, res, next) {
     try {
       let task = await tasksService.getTask({
-        creatorEmail: req.userInfo.email,
         _id: req.params.taskId,
       });
       res.send(task);
