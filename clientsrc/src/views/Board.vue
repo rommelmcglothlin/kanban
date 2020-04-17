@@ -23,8 +23,10 @@
           </form>
         </div>
       </div>
-      <div class="boxes d-flex align-items-top">
-        <lists class="pl-5" v-for="list in lists" :key="list.id" :list="list" />
+      <div class="row">
+        <div class="col-12 boxes d-flex align-items-top scrollmenu">
+          <lists class="pl-5" v-for="list in lists" :key="list.id" :list="list" />
+        </div>
       </div>
     </div>
   </div>
@@ -69,4 +71,7 @@ export default {
 </script>
 
 <style>
+.scrollmenu {
+  overflow-x: scroll;
+}
 </style>
